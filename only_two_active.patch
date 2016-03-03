@@ -1,0 +1,16 @@
+Index: src/physics/MoveEngine.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/physics/MoveEngine.java	(date 1457006524000)
++++ src/physics/MoveEngine.java	(revision )
+@@ -89,7 +89,7 @@
+     }
+ 
+     private synchronized void moveEnts() {
+-        for (int i = 0; i < living.size(); i++) {
++        for (int i = 0; i < 2; i++) {
+             Spawn s = living.get(i);
+             // Get the initial x and y coords.
+             double oldX = s.getX(), oldY = s.getY();

@@ -1,0 +1,16 @@
+Index: src/physics/MoveEngine.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/physics/MoveEngine.java	(date 1457006524000)
++++ src/physics/MoveEngine.java	(revision )
+@@ -28,7 +28,7 @@
+ 
+     public void run() {
+         try {
+-            sleep(2000);
++            sleep(200000);
+         } catch (InterruptedException e) {
+         }
+ 

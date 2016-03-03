@@ -1,0 +1,18 @@
+Index: src/physics/MoveEngine.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/physics/MoveEngine.java	(date 1457006524000)
++++ src/physics/MoveEngine.java	(revision )
+@@ -161,8 +161,8 @@
+     }
+ 
+     private synchronized void checkWallCollisions(Spawn s) {
+-        int maxY = 480 - s.dimY();
+-        int maxX = 640 - s.dimX();
++        int maxY = 640 - s.dimY();
++        int maxX = 480 - s.dimX();
+         if (s.getY() > maxY) {
+             s.updatePos(s.getX(), maxY);
+             s.updateVelocity(s.vx(), (s.vy() * -BOUNCE));

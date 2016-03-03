@@ -1,0 +1,31 @@
+Index: src/physics/MoveEngine.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/physics/MoveEngine.java	(date 1457006524000)
++++ src/physics/MoveEngine.java	(revision )
+@@ -165,19 +165,19 @@
+         int maxX = 640 - s.dimX();
+         if (s.getY() > maxY) {
+             s.updatePos(s.getX(), maxY);
+-            s.updateVelocity(s.vx(), (s.vy() * -BOUNCE));
++            s.updateVelocity(s.vx(), (s.vy() * BOUNCE));
+         }
+         if (s.getX() > maxX) {
+             s.updatePos(maxX, s.getY());
+-            s.updateVelocity((s.vx() * -BOUNCE), s.vy());
++            s.updateVelocity((s.vx() * BOUNCE), s.vy());
+         }
+         if (s.getX() < 1) {
+             s.updatePos(1, s.getY());
+-            s.updateVelocity((s.vx() * -BOUNCE), s.vy());
++            s.updateVelocity((s.vx() * BOUNCE), s.vy());
+         }
+         if (s.getY() < 1) {
+             s.updatePos(s.getX(), 1);
+-            s.updateVelocity(s.vx(), (s.vy() * -BOUNCE));
++            s.updateVelocity(s.vx(), (s.vy() * BOUNCE));
+         }
+     }
+ }
