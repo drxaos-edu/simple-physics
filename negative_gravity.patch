@@ -1,0 +1,18 @@
+Index: src/physics/MoveEngine.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/physics/MoveEngine.java	(date 1457005348000)
++++ src/physics/MoveEngine.java	(revision )
+@@ -64,8 +64,8 @@
+         double xAccel = 0, yAccel = 0;
+         // Find the total acceleration of all const forces.
+         for (int i = 0; i < constForces.size(); i++) {
+-            xAccel += constForces.get(i).ax();
+-            yAccel += constForces.get(i).ay();
++            xAccel -= constForces.get(i).ax();
++            yAccel -= constForces.get(i).ay();
+         }
+         // Apply the sum acceleration to each entity.
+         for (int i = 0; i < living.size(); i++) {

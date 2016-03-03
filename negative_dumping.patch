@@ -1,0 +1,16 @@
+Index: src/physics/MoveEngine.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/physics/MoveEngine.java	(date 1457005348000)
++++ src/physics/MoveEngine.java	(revision )
+@@ -6,7 +6,7 @@
+ public class MoveEngine extends Thread {
+     public final double GRAVITY = 1500;
+     public final double DRAG = 0.2;
+-    public final double BOUNCE = 0.9;
++    public final double BOUNCE = 1.2;
+ 
+     private ArrayList<Spawn> living = new ArrayList<Spawn>();
+ 

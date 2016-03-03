@@ -1,0 +1,16 @@
+Index: src/physics/MoveEngine.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/physics/MoveEngine.java	(date 1456998649000)
++++ src/physics/MoveEngine.java	(revision )
+@@ -94,7 +94,7 @@
+             double oldX = s.getX(), oldY = s.getY();
+             // Calculate the new x and y coords.
+             double newX = oldX + (s.vx() * timeFraction);
+-            double newY = oldY + (s.vy() * timeFraction);
++            double newY = oldY + (s.vy() * 0.00001);
+             s.updatePos(newX, newY);
+             checkWallCollisions(s);
+         }

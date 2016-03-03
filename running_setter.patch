@@ -1,0 +1,18 @@
+Index: src/physics/MoveEngine.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/physics/MoveEngine.java	(date 1457005348000)
++++ src/physics/MoveEngine.java	(revision )
+@@ -22,8 +22,8 @@
+         return living;
+     }
+ 
+-    public void setRunning(boolean isRunning) {
+-        this.isRunning = isRunning;
++    public void setRunning(boolean running) {
++        isRunning = isRunning;
+     }
+ 
+     public void run() {

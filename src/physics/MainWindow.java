@@ -7,7 +7,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class MainWindow {
+public abstract class MainWindow {
     public final int MAX_SPAWN = 30;
     public static final int X = 640;
     public static final int Y = 480;
@@ -24,28 +24,23 @@ public class MainWindow {
 
     MoveEngine moveEngine;
 
-    public static void main(String[] args) {
-        new MainWindow().start();
-    }
 
     public void start() {
         // Initialize some things.
         initializeJFrame();
 
-		// Create and start simulation.
-		moveEngine = new MoveEngine();
-		giveBirth(20, 20, 200, 200, 10);
-		giveBirth(300, 20, -200, 200, 20);
-		giveBirth(30, 100, 400, 50, 10);
-		giveBirth(400, 100, -400, 200, 10);
-		giveBirth(150, 300, 0, -200, 10);
-		moveEngine.start();
+        // Create and start simulation.
+        moveEngine = new MoveEngine();
+        initEntities();
+        moveEngine.start();
 
         moveEngine.setRunning(true);
 
         // Run the animation loop.
         runAnimation();
     }
+
+    public abstract void initEntities();
 
     public void runAnimation() {
         // Set up some variables.
