@@ -1,0 +1,21 @@
+Index: src/physics/MoveEngine.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/physics/MoveEngine.java	(date 1457006839000)
++++ src/physics/MoveEngine.java	(revision )
+@@ -132,8 +132,11 @@
+         // with the collision angle. We do this by supplying the collision angle
+         // to the vector's rotateCoordinates method.
+         Vector2D sVel = s.velVector(), tVel = t.velVector();
+-        sVel.rotateCoordinates(collisionAngle);
+-        tVel.rotateCoordinates(collisionAngle);
++
++        // TODO uncomment
++        //sVel.rotateCoordinates(collisionAngle);
++        //tVel.rotateCoordinates(collisionAngle);
++
+         // In the collision coordinate system, the contact normals lie on the
+         // x-axis. Only the velocity values along this axis are affected. We can
+         // now apply a simple 1D momentum equation where the new x-velocity of
