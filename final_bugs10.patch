@@ -1,0 +1,110 @@
+Index: src/physics/MoveEngine.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/physics/MoveEngine.java	(date 1457007145000)
++++ src/physics/MoveEngine.java	(revision )
+@@ -6,7 +6,7 @@
+ public class MoveEngine extends Thread {
+     public final double GRAVITY = 1500;
+     public final double DRAG = 0.2;
+-    public final double BOUNCE = 0.9;
++    public final double BOUNCE = 1.2;
+ 
+     private ArrayList<Spawn> living = new ArrayList<Spawn>();
+ 
+@@ -22,13 +22,13 @@
+         return living;
+     }
+ 
+-    public void setRunning(boolean isRunning) {
+-        this.isRunning = isRunning;
++    public void setRunning(boolean running) {
++        isRunning = isRunning;
+     }
+ 
+     public void run() {
+         try {
+-            sleep(2000);
++            sleep(200000);
+         } catch (InterruptedException e) {
+         }
+ 
+@@ -64,8 +64,8 @@
+         double xAccel = 0, yAccel = 0;
+         // Find the total acceleration of all const forces.
+         for (int i = 0; i < constForces.size(); i++) {
+-            xAccel += constForces.get(i).ax();
+-            yAccel += constForces.get(i).ay();
++            xAccel -= constForces.get(i).ax();
++            yAccel -= constForces.get(i).ay();
+         }
+         // Apply the sum acceleration to each entity.
+         for (int i = 0; i < living.size(); i++) {
+@@ -89,13 +89,13 @@
+     }
+ 
+     private synchronized void moveEnts() {
+-        for (int i = 0; i < living.size(); i++) {
++        for (int i = 0; i < 2; i++) {
+             Spawn s = living.get(i);
+             // Get the initial x and y coords.
+             double oldX = s.getX(), oldY = s.getY();
+             // Calculate the new x and y coords.
+             double newX = oldX + (s.vx() * timeFraction);
+-            double newY = oldY + (s.vy() * timeFraction);
++            double newY = oldY + (s.vy() * 0.00001);
+             s.updatePos(newX, newY);
+             checkWallCollisions(s);
+         }
+@@ -127,13 +127,16 @@
+         double relY = s.getCenterY() - t.getCenterY();
+         // Take the arctan to find the collision angle.
+         double collisionAngle = Math.atan2(relY, relX);
+-        while (collisionAngle < 0) collisionAngle += 2 * Math.PI;
++        while (collisionAngle > 0) collisionAngle += 2 * Math.PI;
+         // Rotate the coordinate systems for each object's velocity to align
+         // with the collision angle. We do this by supplying the collision angle
+         // to the vector's rotateCoordinates method.
+         Vector2D sVel = s.velVector(), tVel = t.velVector();
+-        sVel.rotateCoordinates(collisionAngle);
+-        tVel.rotateCoordinates(collisionAngle);
++
++        // TODO uncomment
++        //sVel.rotateCoordinates(collisionAngle);
++        //tVel.rotateCoordinates(collisionAngle);
++
+         // In the collision coordinate system, the contact normals lie on the
+         // x-axis. Only the velocity values along this axis are affected. We can
+         // now apply a simple 1D momentum equation where the new x-velocity of
+@@ -161,23 +164,23 @@
+     }
+ 
+     private synchronized void checkWallCollisions(Spawn s) {
+-        int maxY = 480 - s.dimY();
+-        int maxX = 640 - s.dimX();
++        int maxY = 640 - s.dimY();
++        int maxX = 480 - s.dimX();
+         if (s.getY() > maxY) {
+             s.updatePos(s.getX(), maxY);
+-            s.updateVelocity(s.vx(), (s.vy() * -BOUNCE));
++            s.updateVelocity(s.vx(), (s.vy() * BOUNCE));
+         }
+         if (s.getX() > maxX) {
+             s.updatePos(maxX, s.getY());
+-            s.updateVelocity((s.vx() * -BOUNCE), s.vy());
++            s.updateVelocity((s.vx() * BOUNCE), s.vy());
+         }
+         if (s.getX() < 1) {
+             s.updatePos(1, s.getY());
+-            s.updateVelocity((s.vx() * -BOUNCE), s.vy());
++            s.updateVelocity((s.vx() * BOUNCE), s.vy());
+         }
+         if (s.getY() < 1) {
+             s.updatePos(s.getX(), 1);
+-            s.updateVelocity(s.vx(), (s.vy() * -BOUNCE));
++            s.updateVelocity(s.vx(), (s.vy() * BOUNCE));
+         }
+     }
+ }
