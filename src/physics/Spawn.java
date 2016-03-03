@@ -12,7 +12,7 @@ public class Spawn {
         this.y = y;
         this.vx = vx;
         this.vy = vy;
-        this.radius = 15.0;
+        this.radius = radius;
     }
 
     public Spawn(int x, int y) {
@@ -50,6 +50,11 @@ public class Spawn {
     public void updatePos(double newX, double newY) {
         this.x = newX;
         this.y = newY;
+    }
+
+    public void updateCenterPos(double newX, double newY) {
+        this.x = newX - radius;
+        this.y = newY - radius;
     }
 
     public double vx() {
@@ -91,6 +96,14 @@ public class Spawn {
 
     public double getY2() {
         return (this.y + this.dimY());
+    }
+
+    public double getCenterX() {
+        return (this.x + this.radius);
+    }
+
+    public double getCenterY() {
+        return (this.y + this.radius);
     }
 
     public void setX(int newX) {

@@ -36,6 +36,7 @@ public class MoveEngine extends Thread {
         initializeConstForces();
         while (true) {
             updateTime();
+            System.out.println("Frame " + curTime);
             if (isRunning) {
                 applyConstForces();
                 sumForces();
@@ -50,7 +51,7 @@ public class MoveEngine extends Thread {
 
     private void updateTime() {
         lastTime = curTime;
-        curTime = System.currentTimeMillis();
+        curTime = lastTime + 1;
         timePassed = (curTime - lastTime);
         timeFraction = (timePassed / 1000.0);
     }
@@ -111,20 +112,22 @@ public class MoveEngine extends Thread {
                     break;
                 Point2D tCenter = t.getCenter();
                 double distBetween = sCenter.distance(tCenter);
-                double bigR = s.getRadius() > t.getRadius() ? s.getRadius() : t.getRadius();
-                if (distBetween < (bigR * 2))
+                double radiusSum = s.getRadius() + t.getRadius();
+                if (distBetween < radiusSum) {
+                    System.out.println("Collide " + s + " " + t + " " + distBetween);
                     collide(s, t, distBetween);
+                }
             }
         }
     }
 
     private synchronized void collide(Spawn s, Spawn t, double distBetween) {
         // Get the relative x and y dist between them.
-        double relX = s.getX() - t.getX();
-        double relY = s.getY() - t.getY();
+        double relX = s.getCenterX() - t.getCenterX();
+        double relY = s.getCenterY() - t.getCenterY();
         // Take the arctan to find the collision angle.
         double collisionAngle = Math.atan2(relY, relX);
-        // if (collisionAngle < 0) collisionAngle += 2 * Math.PI;
+        while (collisionAngle < 0) collisionAngle += 2 * Math.PI;
         // Rotate the coordinate systems for each object's velocity to align
         // with the collision angle. We do this by supplying the collision angle
         // to the vector's rotateCoordinates method.
@@ -149,12 +152,12 @@ public class MoveEngine extends Thread {
         double minDist = s.getRadius() + t.getRadius();
         double overlap = minDist - distBetween;
         double toMove = overlap / 2;
-        double newX = s.getX() + (toMove * Math.cos(collisionAngle));
-        double newY = s.getY() + (toMove * Math.sin(collisionAngle));
-        s.updatePos(newX, newY);
-        newX = t.getX() - (toMove * Math.cos(collisionAngle));
-        newY = t.getY() - (toMove * Math.sin(collisionAngle));
-        t.updatePos(newX, newY);
+        double newX = s.getCenterX() + (toMove * Math.cos(collisionAngle));
+        double newY = s.getCenterY() + (toMove * Math.sin(collisionAngle));
+        s.updateCenterPos(newX, newY);
+        newX = t.getCenterX() - (toMove * Math.cos(collisionAngle));
+        newY = t.getCenterY() - (toMove * Math.sin(collisionAngle));
+        t.updateCenterPos(newX, newY);
     }
 
     private synchronized void checkWallCollisions(Spawn s) {
