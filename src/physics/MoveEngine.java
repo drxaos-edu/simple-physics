@@ -175,5 +175,9 @@ public class MoveEngine extends Thread {
             s.updatePos(1, s.getY());
             s.updateVelocity((s.vx() * -BOUNCE), s.vy());
         }
+        if (s.getY() < 1) {
+            s.updatePos(s.getX(), 1);
+            s.updateVelocity(s.vx(), (s.vy() * -BOUNCE));
+        }
     }
 }
